@@ -50,11 +50,14 @@ describe('Test suite for /users route on api', () => {
         expect(response.body).toHaveProperty('token')
     })
     // /users/:id update
-    // I keep getting issues on this test and I don't know why. I am losing sleep, please someone help me. I'm unsure why the update isn't updating, in that the response being sent is not what the test is receiving.
+    // I keep getting issues on this test and I don't know why. I am losing sleep, please someone help me. I'm unsure why the update isn't updating, in that the response being sent is not what the test is receiving. The user remains 'john' doe instead of updating to 'jane'.
+
     test('It should update a user', async () => {
         const user = new User({ name: 'John Doe', email: 'john.doe@example.com', password: 'password123' })
         await user.save()
+
         const token = await user.generateAuthToken()
+
 
         const response = await request(app)
           .put(`/users/${user._id}`)
